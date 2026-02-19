@@ -1,0 +1,13 @@
+# DataCode
+
+
+## Running Code
+
+When you click the **Render** button a document will be generated that
+includes both content and the output of embedded code. You can embed
+code like this:
+
+    [1] 4
+
+The `echo: false` option disables the printing of code (only output is
+displayed).
