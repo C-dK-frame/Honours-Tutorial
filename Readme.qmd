@@ -1,6 +1,6 @@
 ---
 title: "HonoursDemo"
-format: html
+format: gfm
 editor: visual
 ---
 
