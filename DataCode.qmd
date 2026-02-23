@@ -3,17 +3,59 @@ title: "DataCode"
 format: gfm
 editor: visual
 ---
-## Running Code
+Running Code
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+All packages required for data processing
 
 ```{r}
+rm(list=ls())
+library(tidyverse)
+library(readxl)
+library(vegan)
+data <- read_excel("DATA/zooplankton_data.xlsx") #enter the data
+```
+
+Analysis (PCA)
+
+Calculate the main components
+Use Principle Component Analysis
+This is done to summarize variation in multivariate data
+```{r}
+workdata <- data %>%
+  slice(1:14) %>%
+  select(2:15)
+pca.fit <- workdata %>%
+  select(-1) %>%                 # remove first column
+  prcomp(scale. = TRUE)
+pca.fit <- prcomp(x = workdata[, -c(1)], scale. = T) # scale=T ensures all variables are scaled to have a mean 
+```
+
+Use these results and the summary command to assign the output to a variable (pca.summary)
+
+```{r} 
+pca.summary <- summary(pca.fit)
+
+names(pca.summary) #view summary
+pca.summary$importance #view variance explained
+#This will give you the most importance principals (PC1, PC2)
+pca.fit$rotation #view important variables
+```
+
+Create a a mainframe for plot use
+
+```{r}
+pca_scores <- as_tibble(pca.fit$x) %>%
+  mutate(Site = data$Site[1:14])
 
 ```
 
-```{r}
-#| echo: false
-2 * 2
-```
+Make a user friendly plot
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+ggplot(pca_scores, aes(x = PC1, y = PC2, colour = Site)) +
+  geom_point(size = 3) +
+  labs(x = "PC1",
+       y = "PC2",
+       title = "PCA by Site") +
+  theme_minimal()
+```
