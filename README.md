@@ -64,6 +64,8 @@ sites.
 
 ## Data Management Plan (DMP)
 
+https://docs.google.com/document/d/1fbFzw74dLa4MQ3mgLuRevqsiYPF2WICUrJZ6oA81-w0/edit?usp=sharing
+
 ### Data Processing and documentation
 
 - All data cleaning and analysis performed in R scripts.
