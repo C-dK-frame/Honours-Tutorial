@@ -1,6 +1,5 @@
 # DataCode
 
-git mv <Data> <Data>
 Running Code
 
 All packages required for data processing
