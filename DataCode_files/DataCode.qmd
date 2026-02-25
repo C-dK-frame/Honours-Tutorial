@@ -1,6 +1,6 @@
 ---
 title: "DataCode"
-format: gfm
+format: html
 editor: visual
 ---
 
@@ -13,7 +13,7 @@ rm(list=ls())
 library(tidyverse)
 library(readxl)
 library(vegan)
-data <- read_excel("zooplankton_data.xlsx") #enter the data
+data <- read_excel("Data/zooplankton_data.xlsx") #enter the data
 ```
 
 Analysis (PCA)
