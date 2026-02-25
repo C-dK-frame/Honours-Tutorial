@@ -12,6 +12,8 @@ When you click the **Render** button a document will be generated that
 includes both content and the output of embedded code. You can embed
 code like this:
 
+What on earht is going on, i have no clue
+
 ``` r
 1 + 1
 ```

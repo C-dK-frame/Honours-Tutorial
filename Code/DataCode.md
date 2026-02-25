@@ -29,7 +29,7 @@ library(vegan)
     Loading required package: permute
 
 ``` r
-data <- read_excel("Data/zooplankton_data.xlsx")#enter the data
+data <- read_excel("zooplankton_data.xlsx") #enter the data
 ```
 
     New names:
@@ -37,17 +37,12 @@ data <- read_excel("Data/zooplankton_data.xlsx")#enter the data
 
 Analysis (PCA)
 
-Calculate the main components Use Principle Component Analysis This is
-done to summarize variation in multivariate data
+Calculate the main components
 
 ``` r
-workdata <- data %>%
-  slice(1:14) %>%
-  select(2:15)
-pca.fit <- workdata %>%
-  select(-1) %>% #remove first column
-  prcomp(scale. = TRUE)
-pca.fit <- prcomp(x = workdata[, -c(1)], scale. = T) #scale=T ensures all variables are scaled to have a mean 
+workdata= data[1:14,2:15]
+workdata = workdata 
+pca.fit <- prcomp(x = workdata[, -c(1)], scale. = T) # scale=T ensures all variables are scaled to have a mean 
 ```
 
 Use these results and the summary command to assign the output to a
@@ -55,15 +50,16 @@ variable (pca.summary)
 
 ``` r
 pca.summary <- summary(pca.fit)
-
-names(pca.summary) #view summary
+ls(pca.summary) #produces a list of objects in the summary
 ```
 
-    [1] "sdev"       "rotation"   "center"     "scale"      "x"         
-    [6] "importance"
+    [1] "center"     "importance" "rotation"   "scale"      "sdev"      
+    [6] "x"         
 
 ``` r
-pca.summary$importance #view variance explained
+# We want to know what the important factors are from the PCS 
+
+pca.summary$importance #checking the variables within the importance column
 ```
 
                                 PC1     PC2      PC3     PC4       PC5       PC6
@@ -80,8 +76,7 @@ pca.summary$importance #view variance explained
     Cumulative Proportion  1.00000000 1.000000000
 
 ``` r
-#This will give you the most importance principals (PC1, PC2)
-pca.fit$rotation #view important variables
+pca.summary$rotation #checking the variables within the rotation column
 ```
 
                                 PC1         PC2         PC3         PC4
@@ -127,22 +122,64 @@ pca.fit$rotation #view important variables
     Medusa             0.25335015 -0.28574259 -0.107743876 -0.137625747
     Mite               0.14311344  0.29999976  0.539241900 -0.117693400
 
-Create a a mainframe for plot use
+Create a scatterplot to depict the data
 
 ``` r
-pca_scores <- as_tibble(pca.fit$x) %>%
-  mutate(Site = data$Site[1:14])
+plot(x=pca.fit$x[,1],
+     y = pca.fit$x[,2],
+     xlab = "PC 1",
+     ylab = "PC 2")
 ```
 
-Make a user friendly plot
+![](DataCode_files/figure-commonmark/unnamed-chunk-4-1.png)
+
+Make the plot more user friendly
 
 ``` r
-ggplot(pca_scores, aes(x = PC1, y = PC2, colour = Site)) +
-  geom_point(size = 3) +
-  labs(x = "PC1",
-       y = "PC2",
-       title = "PCA by Site") +
-  theme_minimal()
+#Separate out the location data
+locations <- unique(data$Site)
+locations
+```
+
+    [1] "Ganzekraal"   "Silwerstroom" NA            
+
+``` r
+#Assign each location a different colour
+legend.cols <- c("green", "blue")
+
+#
+pt.cols <- rep(x = legend.cols[1], length = nrow(data))
+pt.cols[data$Site == locations[2]] <- legend.cols[2]
+
+#plot
+
+plot(x = pca.fit$x[, 1],
+     y = pca.fit$x[, 2],
+     xlab = "PC 1",
+     ylab = "PC 2",
+     pch = 19,
+     col = pt.cols)
+#Check for redundancies
+locations
+```
+
+    [1] "Ganzekraal"   "Silwerstroom" NA            
+
+``` r
+length(locations)
+```
+
+    [1] 3
+
+``` r
+locations <- locations[-3] #remove the NA column
+legend.cols <- legend.cols[-3]
+
+legend("bottomright", 
+       legend = locations, 
+       pch = 19, 
+       col = legend.cols, 
+       cex = 0.8)
 ```
 
 ![](DataCode_files/figure-commonmark/unnamed-chunk-5-1.png)

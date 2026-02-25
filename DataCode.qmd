@@ -12,7 +12,7 @@ rm(list=ls())
 library(tidyverse)
 library(readxl)
 library(vegan)
-data <- read_excel("DATA/zooplankton_data.xlsx") #enter the data
+data <- read_excel("Data/zooplankton_data.xlsx")#enter the data
 ```
 
 Analysis (PCA)
@@ -25,9 +25,9 @@ workdata <- data %>%
   slice(1:14) %>%
   select(2:15)
 pca.fit <- workdata %>%
-  select(-1) %>%                 # remove first column
+  select(-1) %>% #remove first column
   prcomp(scale. = TRUE)
-pca.fit <- prcomp(x = workdata[, -c(1)], scale. = T) # scale=T ensures all variables are scaled to have a mean 
+pca.fit <- prcomp(x = workdata[, -c(1)], scale. = T) #scale=T ensures all variables are scaled to have a mean 
 ```
 
 Use these results and the summary command to assign the output to a variable (pca.summary)
@@ -46,7 +46,6 @@ Create a a mainframe for plot use
 ```{r}
 pca_scores <- as_tibble(pca.fit$x) %>%
   mutate(Site = data$Site[1:14])
-
 ```
 
 Make a user friendly plot
@@ -59,3 +58,4 @@ ggplot(pca_scores, aes(x = PC1, y = PC2, colour = Site)) +
        title = "PCA by Site") +
   theme_minimal()
 ```
+

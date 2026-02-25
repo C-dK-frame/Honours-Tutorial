@@ -1,0 +1,81 @@
+---
+title: "DataCode"
+format: gfm
+editor: visual
+---
+Running Code
+
+All packages required for data processing
+
+```{r}
+rm(list=ls())
+library(tidyverse)
+library(readxl)
+library(vegan)
+data <- read_excel("zooplankton_data.xlsx") #enter the data
+```
+
+Analysis (PCA)
+
+Calculate the main components
+
+```{r}
+workdata= data[1:14,2:15]
+workdata = workdata 
+pca.fit <- prcomp(x = workdata[, -c(1)], scale. = T) # scale=T ensures all variables are scaled to have a mean 
+```
+
+Use these results and the summary command to assign the output to a variable (pca.summary)
+
+```{r} 
+pca.summary <- summary(pca.fit)
+ls(pca.summary) #produces a list of objects in the summary
+# We want to know what the important factors are from the PCS 
+
+pca.summary$importance #checking the variables within the importance column
+
+pca.summary$rotation #checking the variables within the rotation column
+```
+
+Create a scatterplot to depict the data
+
+```{r}
+plot(x=pca.fit$x[,1],
+     y = pca.fit$x[,2],
+     xlab = "PC 1",
+     ylab = "PC 2")
+```
+
+Make the plot more user friendly
+
+```{r}
+#Separate out the location data
+locations <- unique(data$Site)
+locations
+#Assign each location a different colour
+legend.cols <- c("green", "blue")
+
+#
+pt.cols <- rep(x = legend.cols[1], length = nrow(data))
+pt.cols[data$Site == locations[2]] <- legend.cols[2]
+
+#plot
+
+plot(x = pca.fit$x[, 1],
+     y = pca.fit$x[, 2],
+     xlab = "PC 1",
+     ylab = "PC 2",
+     pch = 19,
+     col = pt.cols)
+#Check for redundancies
+locations
+length(locations)
+locations <- locations[-3] #remove the NA column
+legend.cols <- legend.cols[-3]
+
+legend("bottomright", 
+       legend = locations, 
+       pch = 19, 
+       col = legend.cols, 
+       cex = 0.8)
+```
