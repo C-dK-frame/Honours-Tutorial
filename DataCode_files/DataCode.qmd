@@ -3,6 +3,7 @@ title: "DataCode"
 format: gfm
 editor: visual
 ---
+
 Running Code
 
 All packages required for data processing
@@ -27,7 +28,7 @@ pca.fit <- prcomp(x = workdata[, -c(1)], scale. = T) # scale=T ensures all varia
 
 Use these results and the summary command to assign the output to a variable (pca.summary)
 
-```{r} 
+```{r}
 pca.summary <- summary(pca.fit)
 ls(pca.summary) #produces a list of objects in the summary
 # We want to know what the important factors are from the PCS 
