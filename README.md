@@ -65,6 +65,7 @@ sites.
 ## Data Management Plan (DMP)
 
 https://docs.google.com/document/d/1fbFzw74dLa4MQ3mgLuRevqsiYPF2WICUrJZ6oA81-w0/edit?usp=sharing
+If this link does not work, please refer to the pdf called 'My_Honours_Thesis_DMP.pdf", which contains all the required data.
 
 ### Data Processing and documentation
 
