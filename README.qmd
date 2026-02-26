@@ -64,3 +64,6 @@ https://docs.google.com/document/d/1fbFzw74dLa4MQ3mgLuRevqsiYPF2WICUrJZ6oA81-w0/
 -   This README file provides project context and workflow description.
 -   R scripts are annotated with comments explaining each step.
 -   Variable names are clearly defined and consistent across datasets.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/C-dK-frame/Honours-Tutorial.git/HEAD)
+
