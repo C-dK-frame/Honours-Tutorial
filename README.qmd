@@ -3,6 +3,7 @@ title: "README"
 format: gfm
 editor: visual
 ---
+I created this in the vain hope that it would be my main README file, however it would just create .md files to become the new readmes. I'm leaving this here to show I attempted to use .qmd, but that it did not work. 
 
 # Multivariate Analysis of Zooplankton Species Counts
 
